@@ -1,0 +1,13 @@
+{
+  "name": "imovies-root",
+  "version": "1.0.0",
+  "description": "IMovies Full-Stack Cinema Ticket Booking Platform",
+  "scripts": {
+    "start": "npm run server",
+    "server": "cd server && npm start",
+    "server:dev": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "build:client": "cd client && npm run build"
+  }
+}
