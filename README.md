@@ -87,41 +87,8 @@ IMovies/
 
 ## 🚀 Deployment Guide (100% Free)
 
-### Option 1: Unified 1-Click Deployment on Render (Recommended)
-
-Render can build both the React frontend and Express backend into a single Web Service!
-
-1. **Push your code to GitHub**:
-   ```bash
-   git add .
-   git commit -m "Deploy IMovies"
-   git push origin main
-   ```
-
-2. **Create Web Service on Render**:
-   - Go to [dashboard.render.com](https://dashboard.render.com/) and click **"New" → "Web Service"**.
-   - Connect your GitHub repository: `khushi66011/IMovie`.
-   - Settings:
-     - **Name**: `imovies-cinema` (or any custom name)
-     - **Environment**: `Node`
-     - **Build Command**: `npm run build`
-     - **Start Command**: `npm start`
-     - **Instance Type**: `Free`
-
-3. **Add Environment Variables**:
-   Under **Environment Variables**, add:
-   - `MONGO_URI`: `mongodb+srv://bhawsarkhushi983_db_user:%24Khushi25%24@cluster0.kxgvvnn.mongodb.net/imovies?compressors=zlib`
-   - `JWT_SECRET`: `imovies_cinema_jwt_secret_key_2026_super_secure`
-   - `NODE_ENV`: `production`
-   - `PORT`: `5000`
-
-4. Click **"Deploy Web Service"**.
-   - Render will run `npm run build` (compiling the React app into `client/dist`).
-   - Express will serve the API at `/api` and the React frontend on the root URL `https://your-app.onrender.com`.
-
----
-
-### Option 2: Frontend on Vercel + Backend on Render
+ 
+### Option 1: Frontend on Vercel + Backend on Render
 
 If you prefer deploying the frontend separately on Vercel:
 
