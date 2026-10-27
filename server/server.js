@@ -41,18 +41,18 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// In production, serve the React frontend build
+// In production, serve the React frontend build (Express 4 & 5 compatible)
 const clientDistPath = path.resolve(__dirname, '../client/dist');
 app.use(express.static(clientDistPath));
 
-app.get('*', (req, res, next) => {
-  if (req.originalUrl.startsWith('/api')) {
-    return next();
+app.use((req, res, next) => {
+  if (req.method === 'GET' && !req.originalUrl.startsWith('/api')) {
+    return res.sendFile(path.resolve(clientDistPath, 'index.html'));
   }
-  res.sendFile(path.resolve(clientDistPath, 'index.html'));
+  next();
 });
 
-// 404 Handler for unknown routes
+// 404 Handler for unknown API routes
 app.use((req, res) => {
   res.status(404).json({
     success: false,
