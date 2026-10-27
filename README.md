@@ -1,6 +1,8 @@
-# 🎬 IMovies — Premier Cinema Ticket Booking Application (MERN)
+# 🎬 IMovies — Premier Full-Stack Cinema Ticket Booking Platform (MERN)
 
-A full-stack cinema ticketing web application built with **React.js**, **Bootstrap 5**, **Node.js**, **Express.js**, **MongoDB (Mongoose)**, **JWT Authentication**, and **bcryptjs**.
+A modern, production-ready cinema ticketing web application built with the **MERN Stack**:
+- **Frontend**: React.js 18, Vite, Bootstrap 5, Bootstrap Icons, Canvas Confetti, QRCode.react
+- **Backend**: Node.js, Express.js, MongoDB (Mongoose), JSON Web Tokens (JWT), bcryptjs
 
 ---
 
@@ -10,7 +12,7 @@ A full-stack cinema ticketing web application built with **React.js**, **Bootstr
    - Secure customer registration & login with password hashing.
    - JWT authorization token stored in client with automatic session restoration.
    - User profile dropdown with easy 1-click logout.
-   - Built-in **"Quick Demo Account Fill"** for instant 1-click testing (`rajesh@example.com` / `password123`).
+   - Built-in **"Quick Demo Account Fill"** (`rajesh@example.com` / `password123`) for instant evaluation.
 
 2. **Movie Catalog & Live IST Clock**
    - Live Indian Standard Time (IST) clock ticking in real-time in the Navbar with an active pulse indicator.
@@ -45,97 +47,148 @@ A full-stack cinema ticketing web application built with **React.js**, **Bootstr
 
 ## 📁 Project Structure
 
-```
+```text
 IMovies/
-├── client/
-│   ├── public/
+├── client/                     # React Frontend
+│   ├── public/                 # Static assets & favicon
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── AuthModal.jsx            # Sign In / Register dialog
-│   │   │   ├── BookingHistoryModal.jsx  # Past confirmed bookings list
-│   │   │   ├── ETicketModal.jsx         # Printable pass with QR code
-│   │   │   ├── LiveClock.jsx            # Real-time IST clock (Asia/Kolkata)
-│   │   │   ├── MovieCard.jsx            # Cinema movie display card
-│   │   │   ├── MovieGrid.jsx            # Responsive catalog grid
-│   │   │   ├── Navbar.jsx               # Header with logo, IST clock, user menu
-│   │   │   ├── SearchFilter.jsx         # Search bar + genre buttons
-│   │   │   └── SeatMatrixModal.jsx      # Cinema screen & Rows A-E (1-8) matrix
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx          # User auth state provider
-│   │   ├── services/
-│   │   │   └── api.js                   # REST API client
-│   │   ├── App.jsx                      # Root application layout
-│   │   ├── index.css                    # Dark cinema styling & print CSS
-│   │   └── index.jsx                    # React 18 bootstrap mount
-│   ├── index.html
+│   │   ├── components/         # Navbar, MovieCard, SeatMatrix, ETicket, History, Auth
+│   │   ├── context/            # AuthContext (JWT state & user persistence)
+│   │   ├── services/           # Axios/Fetch API client wrapper
+│   │   ├── App.jsx             # Main dashboard & modal controllers
+│   │   ├── index.css           # Custom cinema glassmorphism & print CSS
+│   │   └── index.jsx           # Application entry point
 │   ├── package.json
-│   └── vite.config.js                   # Vite config with /api proxy to port 5000
-│
-└── server/
-    ├── config/
-    │   └── db.js                        # MongoDB / MongoMemoryServer config & seed
-    ├── middleware/
-    │   └── auth.js                      # JWT verification middleware
-    ├── models/
-    │   ├── Booking.js                   # Booking schema with seats, GST, QR data
-    │   ├── Movie.js                     # Movie schema with pricing, showtimes
-    │   └── User.js                      # User schema with bcrypt password hashing
-    ├── routes/
-    │   ├── authRoutes.js                # /api/auth (register, login, me)
-    │   ├── bookingRoutes.js             # /api/bookings (create, my-bookings, details)
-    │   └── movieRoutes.js               # /api/movies (list, details, seats occupancy, seed)
-    ├── seed/
-    │   └── seedMovies.js                # Rich initial Bollywood/Hollywood movie catalog
-    ├── .env                             # Environment configuration
-    ├── package.json
-    └── server.js                        # Express server entry point
+│   ├── vercel.json             # Vercel SPA routing configuration
+│   └── vite.config.js          # Vite config & API reverse proxy
+├── server/                     # Express Backend
+│   ├── config/
+│   │   └── db.js               # MongoDB connection (Atlas & Auto-Fallback)
+│   ├── middleware/
+│   │   └── auth.js             # JWT bearer verification middleware
+│   ├── models/
+│   │   ├── User.js             # User Mongoose schema
+│   │   ├── Movie.js            # Movie Mongoose schema
+│   │   └── Booking.js          # Booking & ticket schema
+│   ├── routes/
+│   │   ├── authRoutes.js       # Register, Login, Me
+│   │   ├── movieRoutes.js      # Catalog, filters, real-time seat locks
+│   │   └── bookingRoutes.js    # Reservation, GST calculation, ticket generation
+│   ├── seed/
+│   │   └── seedMovies.js       # Curated blockbuster movie catalog
+│   ├── package.json
+│   └── server.js               # Express application entry & static serving
+├── render.yaml                 # Render Blueprint for 1-click cloud deployment
+├── package.json                # Root monorepo build & start scripts
+└── README.md                   # Documentation & Deployment Guide
 ```
 
 ---
 
-## 🚀 Quick Start Guide
+## 🚀 Deployment Guide (100% Free)
 
-### Prerequisites
-- Node.js (v18+)
-- npm (v9+)
+### Option 1: Unified 1-Click Deployment on Render (Recommended)
 
-### 1. Start the Backend Server
+Render can build both the React frontend and Express backend into a single Web Service!
+
+1. **Push your code to GitHub**:
+   ```bash
+   git add .
+   git commit -m "Deploy IMovies"
+   git push origin main
+   ```
+
+2. **Create Web Service on Render**:
+   - Go to [dashboard.render.com](https://dashboard.render.com/) and click **"New" → "Web Service"**.
+   - Connect your GitHub repository: `khushi66011/IMovie`.
+   - Settings:
+     - **Name**: `imovies-cinema` (or any custom name)
+     - **Environment**: `Node`
+     - **Build Command**: `npm run build`
+     - **Start Command**: `npm start`
+     - **Instance Type**: `Free`
+
+3. **Add Environment Variables**:
+   Under **Environment Variables**, add:
+   - `MONGO_URI`: `mongodb+srv://bhawsarkhushi983_db_user:%24Khushi25%24@cluster0.kxgvvnn.mongodb.net/imovies?compressors=zlib`
+   - `JWT_SECRET`: `imovies_cinema_jwt_secret_key_2026_super_secure`
+   - `NODE_ENV`: `production`
+   - `PORT`: `5000`
+
+4. Click **"Deploy Web Service"**.
+   - Render will run `npm run build` (compiling the React app into `client/dist`).
+   - Express will serve the API at `/api` and the React frontend on the root URL `https://your-app.onrender.com`.
+
+---
+
+### Option 2: Frontend on Vercel + Backend on Render
+
+If you prefer deploying the frontend separately on Vercel:
+
+1. **Deploy Backend on Render**:
+   - Root Directory: `server`
+   - Build Command: `npm install`
+   - Start Command: `npm start`
+   - Add environment variables: `MONGO_URI`, `JWT_SECRET`, `NODE_ENV=production`.
+   - Copy your Render backend URL (e.g. `https://imovies-server.onrender.com`).
+
+2. **Deploy Frontend on Vercel**:
+   - Go to [vercel.com](https://vercel.com/) → **"Add New Project"**.
+   - Import your GitHub repo `khushi66011/IMovie`.
+   - Set **Root Directory** to `client`.
+   - Framework Preset: `Vite`.
+   - Under **Environment Variables**, add:
+     - `VITE_API_URL`: `https://imovies-server.onrender.com/api`
+   - Click **"Deploy"**.
+
+---
+
+## 💻 Local Development
+
+### 1. Start Both Frontend & Backend:
 ```bash
-cd IMovies/server
-npm install
+npm run install:all
 npm start
 ```
-*The server will start on `http://localhost:5000`. If a local MongoDB instance is not detected, it automatically initializes a built-in in-memory MongoDB instance and auto-seeds initial movies and a demo user!*
 
-### 2. Start the Frontend Client
-In a separate terminal:
+### 2. Or Run Separately:
+
+**Backend:**
 ```bash
-cd IMovies/client
+cd server
+npm install
+npm start
+# Runs on http://localhost:5000
+```
+
+**Frontend:**
+```bash
+cd client
 npm install
 npm run dev
+# Runs on http://localhost:3000
 ```
-*The client will open on `http://localhost:3000` with hot module reloading and API proxying.*
 
 ---
 
-## 🔑 Demo Account Credentials
-- **Email:** `rajesh@example.com`
-- **Password:** `password123`
-*(Or simply click **"Quick Demo Account Fill"** inside the Sign In modal)*
+## 👤 Demo Credentials
+
+- **Email**: `rajesh@example.com`
+- **Password**: `password123`
+- Or use the **"Quick Demo Account Fill"** button inside the Sign In modal!
 
 ---
 
-## 📡 REST API Reference
+## 🎟️ Seat Matrix & Pricing
 
-| Method | Endpoint | Description | Auth Required |
-|---|---|---|---|
-| `POST` | `/api/auth/register` | Register new customer | No |
-| `POST` | `/api/auth/login` | Login & receive JWT | No |
-| `GET` | `/api/auth/me` | Fetch logged-in customer profile | Yes |
-| `GET` | `/api/movies` | Fetch movies with optional `?search=&genre=` | No |
-| `GET` | `/api/movies/:id` | Fetch single movie details | No |
-| `GET` | `/api/movies/:id/seats` | Real-time booked seats `?date=&showtime=` | No |
-| `POST` | `/api/bookings` | Reserve seats & create booking (Subtotal + 18% GST) | Yes |
-| `GET` | `/api/bookings/my-bookings` | Retrieve user booking history | Yes |
-| `GET` | `/api/health` | Server health check | No |
+| Tier | Rows | Price per Seat | Features |
+|---|---|---:|---|
+| **VIP Recliner** | Rows A & B | ₹450 | Luxury leather recliners, prime Dolby sweetspot |
+| **Standard Classic** | Rows C, D, E | ₹250 | High-comfort seating, wide sightlines |
 
+*Note: All transactions automatically itemize and calculate 18% Indian GST with instant verifiable QR E-Tickets.*
+
+---
+
+## 📜 License
+MIT License. Created for IMovies Cinema Ticketing Platform.
